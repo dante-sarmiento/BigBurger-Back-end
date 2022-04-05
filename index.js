@@ -1,5 +1,4 @@
-var express = require('express');
-var app = express();
+var app = require('./app');
 var port = 3000;
 const password = 'devaccount123';
 var URL = `mongodb+srv://DanteDev:${password}@cluster0.fwrz0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
