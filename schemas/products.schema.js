@@ -35,12 +35,12 @@ var ProductSchema = new Schema ({
         default: "Hamburguesas",
         required: true,
     },
-    cod: {
-        type: String,
-        // ref: 'codigo',
-        maxlength: 4,
-        minlength: 4
-    },
+    // cod: {
+    //     type: String,
+    //     // ref: 'codigo',
+    //     maxlength: 4,
+    //     minlength: 4
+    // },
     cretatedAt: {
         type: Date,
         required: true,
