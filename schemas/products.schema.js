@@ -17,7 +17,7 @@ var ProductSchema = new Schema ({
     },
     description: {
         type: String,
-        maxlength: 150,
+        maxlength: 250,
     },
     price: {
         type: Number,

@@ -1,15 +1,17 @@
-var Product = require('../schemas/product.schema')
+var Product = require('../schemas/products.schema')
 
 // Agregar menú
 async function addProducts(req, res){
     try{
-        if(!req.body.name || req.body.price){
+        if(!req.body.name || !req.body.price){
             return res.status(400).send({message:"Falta un campo obligatorio"})
         }
-
-        let newProduct = newProduct(req.body)
+        
+        let newProduct = new Product(req.body)
         await newProduct.save()
-        res.send({nuevoProducto: newProduct})
+        res.send({
+            nuevoProducto: newProduct
+        })
     } catch(err){
         res.status(404).send(err)
     }
@@ -18,22 +20,22 @@ async function addProducts(req, res){
 
 // Obtener todos los menús
 async function getProducts(req, res){
-    const itemsPage = req.query.itemsPage ? req.query.itemsPage : Infinity
+    const itemsPerPage = req.query.itemsPerPage ? req.query.itemsPerPage : Infinity
 
-    const itemsToSkip = req.query.page * 6
+    const itemsToSkip = req.query.page * 5
 
     const parametrosDeBusqueda = req.query.name ? {name: new RegExp(req.query.name, "i")} : {} 
 
     const [productosDataBase, totalProducts] = await Promise.all([
         Product.find(parametrosDeBusqueda)
-        .populate('clientId')
+        // .populate('clientId')
         .collation({locale: "es"})
         .sort({
             name: -1,
             price: 1,
         })
         .skip(itemsToSkip)
-        .limit(itemsPage),
+        .limit(itemsPerPage),
         Product.countDocuments(parametrosDeBusqueda)])
 
         res.send({
@@ -56,10 +58,11 @@ async function getProduct(req, res){
 
 // funcion para borrar menú
 async function deleteProduct(req, res) {
-    const ProductDeleteId = req.query.product_id
-    const ProductDelete = await Product.findByIdAndDelete(ProductDeleteId)
-    if (!ProductDelete) return res.status(404).send("No se encontró el producto")
-    return res.status(200).send({message: `El producto ${ProductDelete.name} ha sido borrado`})
+    const ProductIdDelete = req.query.product_id_delete;
+    const productDelete = await Product.findByIdAndDelete(ProductIdDelete);
+    if (!productDelete) return res.status(404).send('El producto que desea borrar no fue encontrado')
+
+    return res.status(200).send({msg: `El producto ${productDelete.name} ha sido borrado correctamente`});
 }
 
 
