@@ -3,7 +3,7 @@ var Product = require('../schemas/products.schema')
 // Agregar menú
 async function addProducts(req, res){
     try{
-        if(!req.body.name || !req.body.price){
+        if(!req.body.name || !req.body.price || !req.body.description){
             return res.status(400).send({message:"Falta un campo obligatorio"})
         }
         
