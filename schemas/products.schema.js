@@ -23,8 +23,8 @@ var ProductSchema = new Schema ({
     price: {
         type: Number,
         required: true,
-        minlength: 0,
-        maxlength: 10000
+        min: 0,
+        max: 10000
     },
     stock: {
         type: Boolean,
@@ -36,12 +36,6 @@ var ProductSchema = new Schema ({
         default: "Hamburguesas",
         required: true,
     },
-    // cod: {
-    //     type: String,
-    //     // ref: 'codigo',
-    //     maxlength: 4,
-    //     minlength: 4
-    // },
     cretatedAt: {
         type: Date,
         required: true,
