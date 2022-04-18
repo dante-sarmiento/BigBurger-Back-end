@@ -1,6 +1,8 @@
 const User = require('../schemas/user.schemas');
 const bcrypt = require('bcrypt');
 const salt = 10;
+const jwt = require('jsonwebtoken');
+const secret = require('../config/config').secret;
 
 
 async function addUser(req, res){
@@ -78,10 +80,14 @@ async function login (req, res){
         userDB.password = undefined;
         console.log(userDB);
 
+//generamos un token de acceso
+        const token = jwt.sign(userDB.toJSON(), secret, {expiresIn: 3000});
+
         return res.status(200).send({
             ok: true,
             msg:'Login correcto',
-            user: userDB
+            user: userDB,
+            token
         })
 
     } catch(error){
