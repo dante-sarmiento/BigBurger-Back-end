@@ -6,7 +6,6 @@ var OrderSchema = new Schema({
         required:true},
     cretatedAt: {
         type: Date,
-        required: true,
         default: Date.now
     },
     menu:{
@@ -16,7 +15,6 @@ var OrderSchema = new Schema({
     },
     state:{
         type: Boolean,
-        required:true,
         default:false
     }
 
