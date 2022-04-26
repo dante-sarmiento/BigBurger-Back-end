@@ -36,6 +36,11 @@ var ProductSchema = new Schema ({
         default: "Hamburguesas",
         required: true,
     },
+    IMG: {
+        type: String,
+        required: true,
+        default: "unknow"
+    },
     cretatedAt: {
         type: Date,
         required: true,
