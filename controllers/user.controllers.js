@@ -41,7 +41,7 @@ async function getUser(req, res){
 
 async function deleteUser(req, res){
     
-    const user_deleted = req.query.user_id;
+    const user_deleted = req.params.id;
 
     const user = await User.findByIdAndDelete(user_deleted);
     console.log(user);
@@ -51,7 +51,7 @@ async function deleteUser(req, res){
 
 //UPADATE USER
 async function updateUser(req, res) {
-    const id = req.params.upd_id;
+    const id = req.params.id;
 
     const userChangesToApply = req.body;
 

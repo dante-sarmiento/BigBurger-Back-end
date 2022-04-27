@@ -7,13 +7,13 @@ const isAdmin = require('../middlewares/isAdmin')
 
 app.post('/user', userController.addUser);
 
-app.get('/users', checkAuthentication, userController.getUsers);
+app.get('/users', userController.getUsers); //checkAuthentication
 
-app.get('/user', checkAuthentication, userController.getUser);
+app.get('/user',  userController.getUser); //checkAuthentication,
 
-app.delete('/user',  [checkAuthentication, isAdmin], userController.deleteUser);
+app.delete('/user/:id', userController.deleteUser); //[checkAuthentication, isAdmin]
 
-app.put('/user/:upd_id', checkAuthentication, userController.updateUser);
+app.put('/user/:id',  userController.updateUser); //checkAuthentication,
 
 app.post('/login', userController.login);
 
