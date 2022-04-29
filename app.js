@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended:false}))
 app.use('/api',[
     user_routes,
     product_routes,
-    // order_routes
+    order_routes
 ]);
 
 
