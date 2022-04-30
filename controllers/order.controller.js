@@ -1,8 +1,8 @@
 var Order = require("../schemas/order.schema")
 
 async function createOrder(req, res){
-    console.log("createOrder escuchando")
-    res.send({message:"create Order escuchando"})
+    // console.log("createOrder escuchando")
+    //res.send({message:"create Order escuchando"})
     try{
         if(!req.body) res.status(400).send({message:"El carrito esta vacio"})
 
@@ -19,10 +19,15 @@ async function createOrder(req, res){
 }
 
 async function getOrders(req, res){
-   
-        const ordersDB = await Order.find()
-        res.send({ ticket: ordersDB })
-   
+    // res.send({message:"get Order escuchando"})
+
+   try{
+        const ordersDB = await Order.find().sort({cretatedAt:-1})
+        res.status(400).send({ ticket: ordersDB })
+    }catch(err){
+        res.status(403).send(err)
+
+    }
 
 }
 

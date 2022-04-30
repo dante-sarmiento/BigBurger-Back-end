@@ -16,7 +16,8 @@ var OrderSchema = new Schema({
     state:{
         type: Boolean,
         default:false
-    }
+    },
+    total:{type:Number}
 
 })
 
