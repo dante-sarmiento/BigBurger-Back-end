@@ -23,8 +23,10 @@ var ProductSchema = new Schema ({
     price: {
         type: Number,
         required: true,
+
         min: 0,
         max: 10000
+
     },
     stock: {
         type: Boolean,
@@ -36,11 +38,13 @@ var ProductSchema = new Schema ({
         default: "Hamburguesas",
         required: true,
     },
+
     IMG: {
         type: String,
         required: true,
         default: "unknow"
     },
+
     cretatedAt: {
         type: Date,
         required: true,
@@ -53,6 +57,7 @@ var ProductSchema = new Schema ({
         type: String,
         ref: "User",
         default: "Unknow"
+
     }
 })
 
