@@ -1,8 +1,10 @@
 const User = require('../schemas/user.schemas');
 const bcrypt = require('bcrypt');
 const salt = 10;
+
 var jwt = require('jsonwebtoken')
 var secret = '4lf4-b3t@!'
+
 
 async function addUser(req, res){
     try{
@@ -17,7 +19,9 @@ async function addUser(req, res){
         await newUser.save()// Guardamos en la BD
         res.send({ usuarioNuevo: newUser })
     } catch(error){
-        res.status(401).send(error)
+
+        res.status(400).send('error')
+
     }
 }
 
@@ -68,7 +72,10 @@ async function login (req, res){
 
 //checkeamos que el usuario exista y nos traemos sus datos
         const userDB = await User.findOne({ email: req.body.email });
-        if(!userDB) return res.status(404).send({ msg:'Alguno de los datos ingresados no es correcto'  });
+
+
+        if(!userDB) return res.status(404).send({ msg:'El suario no existe en nuestra BD' });
+
 
 //comparamos password proveniente del front con el password del usuario
         const isValidPassword = await bcrypt.compare(password, userDB.password);
@@ -78,6 +85,7 @@ async function login (req, res){
 //elimino del objeto user el password
         userDB.password = undefined;
         console.log(userDB);
+
 // Generoamos un token de acceso
         const token =  jwt.sign(userDB.toJSON(), secret)
            
@@ -86,6 +94,7 @@ async function login (req, res){
             msg:'Login correcto',
             user: userDB,
             token
+
         })
 
     } catch(error){

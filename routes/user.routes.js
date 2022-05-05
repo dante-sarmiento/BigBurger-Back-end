@@ -1,4 +1,5 @@
 var express = require('express');
+
 var api = express.Router();
 var userController = require('../controllers/user.controllers');
 
@@ -16,3 +17,4 @@ api.put('/user/:upd_id', userController.updateUser);
 api.post('/login', userController.login);
 
 module.exports = api;
+
