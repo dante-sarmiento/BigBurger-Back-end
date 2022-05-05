@@ -54,6 +54,9 @@ var ProductSchema = new Schema ({
         type: String,
         ref: "User",
         default: "Unknow"
+    },
+    IMG:{
+        type:String
     }
 })
 

@@ -23,7 +23,7 @@ async function getOrders(req, res){
 
    try{
         const ordersDB = await Order.find().sort({cretatedAt:-1})
-        res.status(400).send({ ticket: ordersDB })
+        res.status(200).send({ ticket: ordersDB })
     }catch(err){
         res.status(403).send(err)
 

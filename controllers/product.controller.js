@@ -31,7 +31,7 @@ async function getProducts(req, res){
         // .populate('clientId')
         .collation({locale: "es"})
         .sort({
-            name: -1,
+            category: -1,
             price: 1,
         })
         .skip(itemsToSkip)
