@@ -30,6 +30,17 @@ async function getOrders(req, res){
     }
 
 }
+//UPADATE ORDER
+async function updateOrder(req, res) {
+    const id = req.params.upd_id;
 
-module.exports = {createOrder,getOrders
+    const orderChangesToApply = req.body;
+
+    const updatedOrder = await Order.findByIdAndUpdate(id, orderChangesToApply, { new: true });
+    if(!updatedOrder) return res.status(404).send('No se encontro la orden');
+    
+    return res.status(200).send(updatedOrder)
+}
+
+module.exports = {createOrder,getOrders,updateOrder
 }
