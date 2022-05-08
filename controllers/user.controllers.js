@@ -1,6 +1,8 @@
 const User = require('../schemas/user.schemas');
 const bcrypt = require('bcrypt');
 const salt = 10;
+const jwt = require('jsonwebtoken');
+const secret = require('../config/config').secret;
 
 var jwt = require('jsonwebtoken')
 var secret = '4lf4-b3t@!'
@@ -44,7 +46,7 @@ async function getUser(req, res){
 
 async function deleteUser(req, res){
     
-    const user_deleted = req.query.user_id;
+    const user_deleted = req.params.id;
 
     const user = await User.findByIdAndDelete(user_deleted);
     console.log(user);
@@ -54,7 +56,7 @@ async function deleteUser(req, res){
 
 //UPADATE USER
 async function updateUser(req, res) {
-    const id = req.params.upd_id;
+    const id = req.params.id;
 
     const userChangesToApply = req.body;
 
@@ -86,15 +88,16 @@ async function login (req, res){
         userDB.password = undefined;
         console.log(userDB);
 
-// Generoamos un token de acceso
-        const token =  jwt.sign(userDB.toJSON(), secret)
-           
+
+//generamos un token de acceso
+        const token = jwt.sign(userDB.toJSON(), secret, {expiresIn: 3000});
+
+
         return res.status(200).send({
             ok: true,
             msg:'Login correcto',
             user: userDB,
             token
-
         })
 
     } catch(error){
