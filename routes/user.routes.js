@@ -1,18 +1,24 @@
 var express = require('express');
-var app = express.Router();
+
+var api = express.Router();
 var userController = require('../controllers/user.controllers');
+const checkAuthentication = require('../middlewares/authentication')
+const isAdmin = require('../middlewares/isAdmin')
 
 
-app.post('/user', userController.addUser);
+api.post('/user', userController.addUser);
 
-app.get('/users', userController.getUsers);
+api.get('/users', userController.getUsers);
 
-app.get('/user', userController.getUser);
 
-app.delete('/user', userController.deleteUser);
+app.get('/users', checkAuthentication, userController.getUsers); 
 
-app.put('/user/:upd_id', userController.updateUser);
+app.get('/user', checkAuthentication, userController.getUser); 
 
-app.post('/login', userController.login);
+app.delete('/user/:id', [checkAuthentication, isAdmin], userController.deleteUser); 
 
-module.exports = app;
+app.put('/user/:id', checkAuthentication, userController.updateUser); 
+
+
+module.exports = api;
+

@@ -1,6 +1,11 @@
 const User = require('../schemas/user.schemas');
 const bcrypt = require('bcrypt');
 const salt = 10;
+const jwt = require('jsonwebtoken');
+const secret = require('../config/config').secret;
+
+var jwt = require('jsonwebtoken')
+var secret = '4lf4-b3t@!'
 
 
 async function addUser(req, res){
@@ -16,7 +21,9 @@ async function addUser(req, res){
         await newUser.save()// Guardamos en la BD
         res.send({ usuarioNuevo: newUser })
     } catch(error){
+
         res.status(400).send('error')
+
     }
 }
 
@@ -39,7 +46,7 @@ async function getUser(req, res){
 
 async function deleteUser(req, res){
     
-    const user_deleted = req.query.user_id;
+    const user_deleted = req.params.id;
 
     const user = await User.findByIdAndDelete(user_deleted);
     console.log(user);
@@ -49,7 +56,7 @@ async function deleteUser(req, res){
 
 //UPADATE USER
 async function updateUser(req, res) {
-    const id = req.params.upd_id;
+    const id = req.params.id;
 
     const userChangesToApply = req.body;
 
@@ -67,7 +74,10 @@ async function login (req, res){
 
 //checkeamos que el usuario exista y nos traemos sus datos
         const userDB = await User.findOne({ email: req.body.email });
+
+
         if(!userDB) return res.status(404).send({ msg:'El suario no existe en nuestra BD' });
+
 
 //comparamos password proveniente del front con el password del usuario
         const isValidPassword = await bcrypt.compare(password, userDB.password);
@@ -78,10 +88,16 @@ async function login (req, res){
         userDB.password = undefined;
         console.log(userDB);
 
+
+//generamos un token de acceso
+        const token = jwt.sign(userDB.toJSON(), secret, {expiresIn: 3000});
+
+
         return res.status(200).send({
             ok: true,
             msg:'Login correcto',
-            user: userDB
+            user: userDB,
+            token
         })
 
     } catch(error){
