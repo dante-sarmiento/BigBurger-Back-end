@@ -4,6 +4,9 @@ const salt = 10;
 const jwt = require('jsonwebtoken');
 const secret = require('../config/config').secret;
 
+var jwt = require('jsonwebtoken')
+var secret = '4lf4-b3t@!'
+
 
 async function addUser(req, res){
     try{
@@ -18,7 +21,9 @@ async function addUser(req, res){
         await newUser.save()// Guardamos en la BD
         res.send({ usuarioNuevo: newUser })
     } catch(error){
+
         res.status(400).send('error')
+
     }
 }
 
@@ -69,7 +74,10 @@ async function login (req, res){
 
 //checkeamos que el usuario exista y nos traemos sus datos
         const userDB = await User.findOne({ email: req.body.email });
+
+
         if(!userDB) return res.status(404).send({ msg:'El suario no existe en nuestra BD' });
+
 
 //comparamos password proveniente del front con el password del usuario
         const isValidPassword = await bcrypt.compare(password, userDB.password);
@@ -80,8 +88,10 @@ async function login (req, res){
         userDB.password = undefined;
         console.log(userDB);
 
+
 //generamos un token de acceso
         const token = jwt.sign(userDB.toJSON(), secret, {expiresIn: 3000});
+
 
         return res.status(200).send({
             ok: true,

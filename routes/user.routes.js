@@ -1,11 +1,15 @@
 var express = require('express');
-var app = express.Router();
+
+var api = express.Router();
 var userController = require('../controllers/user.controllers');
 const checkAuthentication = require('../middlewares/authentication')
 const isAdmin = require('../middlewares/isAdmin')
 
 
-app.post('/user', userController.addUser);
+api.post('/user', userController.addUser);
+
+api.get('/users', userController.getUsers);
+
 
 app.get('/users', checkAuthentication, userController.getUsers); 
 
@@ -15,6 +19,6 @@ app.delete('/user/:id', [checkAuthentication, isAdmin], userController.deleteUse
 
 app.put('/user/:id', checkAuthentication, userController.updateUser); 
 
-app.post('/login', userController.login);
 
-module.exports = app;
+module.exports = api;
+
