@@ -4,9 +4,6 @@ const salt = 10;
 const jwt = require('jsonwebtoken');
 const secret = require('../config/config').secret;
 
-var jwt = require('jsonwebtoken')
-var secret = '4lf4-b3t@!'
-
 
 async function addUser(req, res){
     try{
