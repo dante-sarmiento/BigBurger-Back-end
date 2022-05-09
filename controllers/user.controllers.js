@@ -87,7 +87,7 @@ async function login (req, res){
 
 
 //generamos un token de acceso
-        const token = jwt.sign(userDB.toJSON(), secret, {expiresIn: 3000});
+        const token = jwt.sign(userDB.toJSON(), secret);
 
 
         return res.status(200).send({

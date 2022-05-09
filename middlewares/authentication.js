@@ -8,7 +8,7 @@ const checkAuthentication = (req, res, next)=>{
     jwt.verify(token, secret, (error, jwtDecoded)=> {
         if(error) return res.status(400).send({
             ok: false,
-            msg: 'Error de token'
+            msg: error
         })
         req.user = jwtDecoded;
         next();
