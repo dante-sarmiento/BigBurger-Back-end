@@ -9,7 +9,12 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+app.use('/api',[
+    user_routes,
+    product_routes,
+    order_routes
 
+]);
 
 
 module.exports = app;
