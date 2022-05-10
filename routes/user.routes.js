@@ -8,13 +8,13 @@ const isAdmin = require('../middlewares/isAdmin')
 
 api.post('/user', userController.addUser);
 
-api.get('/users', /*checkAuthentication,*/ userController.getUsers); 
+api.get('/users', checkAuthentication, userController.getUsers); 
 
-api.get('/user', /*checkAuthentication,*/ userController.getUser); 
+api.get('/user', checkAuthentication, userController.getUser); 
 
-api.delete('/user/:id',/* [checkAuthentication, isAdmin],*/ userController.deleteUser); 
+api.delete('/user/:id', [checkAuthentication, isAdmin], userController.deleteUser); 
 
-api.put('/user/:id', /*checkAuthentication,*/ userController.updateUser); 
+api.put('/user/:id', checkAuthentication, userController.updateUser); 
 
 api.post('/login', userController.login);
 
