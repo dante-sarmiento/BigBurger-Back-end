@@ -1,6 +1,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var estadosValidos = [
+    'pendiente',
+    'realizado'
+
+]
 var OrderSchema = new Schema({
     user:{type: Object,
         required:true},
@@ -14,8 +19,9 @@ var OrderSchema = new Schema({
         default:"Menu Vacio"
     },
     state:{
-        type: Boolean,
-        default:false
+        type: String,
+        enum: estadosValidos,
+        default:'pendiente'
     },
     total:{type:Number}
 
