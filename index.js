@@ -1,6 +1,7 @@
 var app = require('./app');
 var port = process.env.PORT || 3100;
-const password = 'devaccount123';
+require('dotenv').config();
+const password = process.env.DB_PASSWORD
 var URL = `mongodb+srv://DanteDev:${password}@cluster0.fwrz0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 var mongoose = require('mongoose')
 
