@@ -14,18 +14,19 @@ var ProductSchema = new Schema ({
         type: String,
         required: true,
         maxlength: 40,
+        minlength: 2,
     },
     description: {
         type: String,
         required: true,
         maxlength: 250,
+        minlength: 1,
     },
     price: {
         type: Number,
         required: true,
-
-        min: 0,
-        max: 10000
+        min: 1,
+        max: 10000,
 
     },
     stock: {
@@ -42,21 +43,21 @@ var ProductSchema = new Schema ({
     IMG: {
         type: String,
         required: true,
-        default: "unknow"
+        default: "unknow",
     },
 
     cretatedAt: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
     },
     updatedAt: {
-        type: Date
+        type: Date,
     },
     clientId: {
         type: String,
         ref: "User",
-        default: "Unknow"
+        default: "Unknow",
 
     }
 })
